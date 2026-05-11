@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(cd \"C:\\\\Users\\\\rafap\\\\OneDrive\\\\Desktop\\\\production-mix-optimizer\"; $pnpm = Get-ChildItem -Path \".\" -Recurse -Filter \"pnpm.cmd\" -ErrorAction SilentlyContinue | Select-Object -First 1; if \\($pnpm\\) { & $pnpm.FullName tsc --noEmit 2>&1 | Select-Object -First 40 } else { Write-Host \"pnpm not found, trying node_modules\" }; & \".\\\\node_modules\\\\.bin\\\\tsc.cmd\" --noEmit 2>&1 | Select-Object -First 40)",
+      "PowerShell(& \"C:\\\\Program Files\\\\nodejs\\\\node.exe\" -e \"const { execSync } = require\\('child_process'\\); execSync\\('npm install -g pnpm', {stdio: 'inherit'}\\)\" 2>&1 | Select-Object -First 10)",
+      "PowerShell(pnpm install *)",
+      "PowerShell(cd \"C:\\\\Users\\\\rafap\\\\OneDrive\\\\Desktop\\\\production-mix-optimizer\"; & \"C:\\\\Program Files\\\\nodejs\\\\node.exe\" \"$env:APPDATA\\\\npm\\\\node_modules\\\\pnpm\\\\bin\\\\pnpm.cjs\" install 2>&1 | Select-Object -Last 15)",
+      "PowerShell(cd \"C:\\\\Users\\\\rafap\\\\OneDrive\\\\Desktop\\\\production-mix-optimizer\"; & \"C:\\\\Program Files\\\\nodejs\\\\node.exe\" \".\\\\node_modules\\\\typescript\\\\bin\\\\tsc\" --noEmit 2>&1 | Where-Object { $_ -notmatch \"page.tsx\\\\:\\(14[5-9]|15[0-4]\\)\" })",
+      "PowerShell(cd \"C:\\\\Users\\\\rafap\\\\OneDrive\\\\Desktop\\\\production-mix-optimizer\"; Start-Process -FilePath \"C:\\\\Program Files\\\\nodejs\\\\node.exe\" -ArgumentList \"$env:APPDATA\\\\npm\\\\node_modules\\\\pnpm\\\\bin\\\\pnpm.cjs\", \"dev\" -PassThru -WindowStyle Minimized; Start-Sleep -Seconds 8; Write-Host \"Server started\")",
+      "PowerShell(Start-Sleep -Seconds 6; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 5 -UseBasicParsing; \"Status: $\\($r.StatusCode\\)\" } catch { \"Erro: $_\" })",
+      "PowerShell(Receive-Job *)",
+      "PowerShell(cd \"C:\\\\Users\\\\rafap\\\\OneDrive\\\\Desktop\\\\production-mix-optimizer\"; & \"C:\\\\Program Files\\\\nodejs\\\\node.exe\" \"$env:APPDATA\\\\npm\\\\node_modules\\\\pnpm\\\\bin\\\\pnpm.cjs\" approve-builds 2>&1 | Select-Object -First 5; & \"C:\\\\Program Files\\\\nodejs\\\\node.exe\" \"$env:APPDATA\\\\npm\\\\node_modules\\\\pnpm\\\\bin\\\\pnpm.cjs\" install --ignore-scripts 2>&1 | Select-Object -Last 5)",
+      "PowerShell(cd \"C:\\\\Users\\\\rafap\\\\OneDrive\\\\Desktop\\\\production-mix-optimizer\"; & \"C:\\\\Program Files\\\\nodejs\\\\node.exe\" \"$env:APPDATA\\\\npm\\\\node_modules\\\\pnpm\\\\bin\\\\pnpm.cjs\" install --ignore-scripts 2>&1 | Select-Object -Last 8)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 8 -UseBasicParsing; \"HTTP $\\($r.StatusCode\\) - OK\" } catch { \"Erro: $_\" })",
+      "PowerShell(cd \"C:\\\\Users\\\\rafap\\\\OneDrive\\\\Desktop\\\\production-mix-optimizer\"; $proc = Start-Process -FilePath \"C:\\\\Program Files\\\\nodejs\\\\node.exe\" -ArgumentList \"$env:APPDATA\\\\npm\\\\node_modules\\\\pnpm\\\\bin\\\\pnpm.cjs\", \"exec\", \"next\", \"dev\" -WorkingDirectory \"C:\\\\Users\\\\rafap\\\\OneDrive\\\\Desktop\\\\production-mix-optimizer\" -PassThru -WindowStyle Normal; Write-Host \"PID: $\\($proc.Id\\)\"; Start-Sleep -Seconds 12; try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 8 -UseBasicParsing; \"HTTP $\\($r.StatusCode\\)\" } catch { \"Not ready yet: $_\" })",
+      "PowerShell($git = \"C:\\\\Program Files\\\\Git\\\\cmd\\\\git.exe\"; cd \"C:\\\\Users\\\\rafap\\\\OneDrive\\\\Desktop\\\\production-mix-optimizer\"; & $git init; & $git add .; & $git commit -m \"feat: otimizador de mix de producao com metodo simplex passo a passo\")"
+    ]
+  }
+}
