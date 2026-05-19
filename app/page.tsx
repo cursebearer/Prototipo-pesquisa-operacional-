@@ -107,18 +107,20 @@ export default function ProblemPage() {
               maximizar o lucro da semana.
             </p>
             <p>
-              A empresa fabrica quatro produtos derivados de carne suína. Cada
-              produto consome <strong>1 kg de matéria‑prima por kg
-              produzido</strong>, mas difere no valor agregado, no tempo de mão
-              de obra exigido e no uso da estufa de defumação — recurso escasso
-              e compartilhado entre Bacon e Salame.
+              A empresa fabrica quatro produtos derivados da carne suína. Todos
+              partem da mesma matéria‑prima — <strong>cada quilo produzido
+              consome um quilo de carne</strong> — mas se diferenciam pelo lucro
+              por kg, pelo tempo de mão de obra que exigem e pelo uso de dois
+              recursos compartilhados: a <strong>estufa de defumação</strong>{" "}
+              (disputada por Bacon e Salame) e a <strong>câmara de
+              refrigeração</strong> (compartilhada entre Linguiça e Bacon).
             </p>
             <p>
-              A empresa mantém um <strong>contrato fixo com um supermercado
-              local</strong> que exige uma quantidade mínima semanal de Carcaça.
-              Além disso, o mercado de Salame tem demanda limitada e a câmara de
-              refrigeração compartilhada entre Linguiça e Bacon impõe um teto à
-              produção desses itens.
+              Além dos limites de recursos, o gerente precisa atender a um{" "}
+              <strong>contrato fixo de Carcaça</strong> com um supermercado
+              local e respeitar a <strong>demanda máxima de Salame</strong>, que
+              é um produto premium absorvido pelo mercado em quantidade limitada
+              por semana.
             </p>
           </CardContent>
         </Card>
@@ -286,14 +288,33 @@ export default function ProblemPage() {
               <div>
                 <CardTitle className="text-3xl">Solução Ótima — Cenário Base</CardTitle>
                 <CardDescription className="text-lg mt-2">
-                  500 kg de carne · 40 h de trabalho · 150 kg de estufa · 280 kg
-                  de refrigeração · 120 kg demanda salame · contrato mínimo 100 kg
+                  Valores das restrições adotados neste cenário
                 </CardDescription>
               </div>
               <MinecraftPig variant="side" size={160} className="shrink-0 drop-shadow-md" />
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
+
+            {/* Grid com valores das restrições */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-base">
+              {[
+                { label: "Carne Total",       value: "500 kg" },
+                { label: "Mão de Obra",       value: "40 h"   },
+                { label: "Estufa",            value: "150 kg" },
+                { label: "Refrigeração",      value: "280 kg" },
+                { label: "Demanda Salame",    value: "120 kg" },
+                { label: "Contrato Carcaça",  value: "100 kg" },
+              ].map((r) => (
+                <div
+                  key={r.label}
+                  className="rounded-lg bg-muted/50 p-4 flex flex-col gap-0.5"
+                >
+                  <p className="text-sm text-muted-foreground">{r.label}</p>
+                  <p className="font-semibold text-foreground text-lg">{r.value}</p>
+                </div>
+              ))}
+            </div>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
               Aplicando o método Simplex a esse cenário, o solver encontra os
