@@ -100,27 +100,40 @@ export default function ProblemPage() {
           </CardHeader>
           <CardContent className="space-y-4 text-foreground leading-relaxed text-xl">
             <p>
-              O <strong>Frigorífico Vale Verde</strong> é uma agroindústria
-              familiar localizada no interior do Rio Grande do Sul. Toda semana,
-              o gerente de produção recebe um lote de carne suína e precisa
-              decidir <strong>quanto produzir de cada item</strong> para
-              maximizar o lucro da semana.
+              O <strong>Frigorífico Vale Verde</strong>, agroindústria familiar
+              do interior do Rio Grande do Sul, recebe semanalmente{" "}
+              <strong>500 kg de carne suína</strong> e dispõe de{" "}
+              <strong>40 horas de mão de obra</strong> para o processamento. O
+              gerente de produção precisa decidir{" "}
+              <strong>quanto produzir de cada item</strong> para maximizar o
+              lucro da semana.
             </p>
             <p>
-              A empresa fabrica quatro produtos derivados da carne suína. Todos
-              partem da mesma matéria‑prima — <strong>cada quilo produzido
-              consome um quilo de carne</strong> — mas se diferenciam pelo lucro
-              por kg, pelo tempo de mão de obra que exigem e pelo uso de dois
-              recursos compartilhados: a <strong>estufa de defumação</strong>{" "}
-              (disputada por Bacon e Salame) e a <strong>câmara de
-              refrigeração</strong> (compartilhada entre Linguiça e Bacon).
+              A empresa fabrica quatro produtos a partir da mesma matéria‑prima
+              ( <strong>1 kg produzido = 1 kg de carne</strong> ):{" "}
+              <strong>Carcaça</strong>, vendida in natura, dá lucro de{" "}
+              <strong>R$ 10/kg</strong> e não exige processamento;{" "}
+              <strong>Linguiça</strong> rende <strong>R$ 25/kg</strong> e
+              consome <strong>3 min de trabalho por kg</strong>;{" "}
+              <strong>Bacon</strong> rende <strong>R$ 35/kg</strong> e exige{" "}
+              <strong>6 min/kg</strong>; e <strong>Salame</strong>, o produto
+              mais rentável, rende <strong>R$ 45/kg</strong> e consome{" "}
+              <strong>9 min/kg</strong>.
             </p>
             <p>
-              Além dos limites de recursos, o gerente precisa atender a um{" "}
-              <strong>contrato fixo de Carcaça</strong> com um supermercado
-              local e respeitar a <strong>demanda máxima de Salame</strong>, que
-              é um produto premium absorvido pelo mercado em quantidade limitada
-              por semana.
+              Dois recursos físicos são compartilhados: a{" "}
+              <strong>estufa de defumação</strong>, com capacidade de{" "}
+              <strong>150 kg/semana</strong>, é disputada por Bacon e Salame; e
+              a <strong>câmara de refrigeração</strong>, com capacidade de{" "}
+              <strong>280 kg/semana</strong>, armazena Linguiça e Bacon.
+            </p>
+            <p>
+              Há ainda dois compromissos comerciais: um{" "}
+              <strong>contrato com o supermercado local</strong> exige a
+              entrega de no mínimo <strong>100 kg de Carcaça</strong> por
+              semana, e o Salame, por ser um produto premium, tem{" "}
+              <strong>demanda máxima de 120 kg/semana</strong> absorvidos pelo
+              mercado.
             </p>
           </CardContent>
         </Card>
@@ -262,21 +275,20 @@ export default function ProblemPage() {
                 Sujeito a
               </p>
               <ul className="font-mono text-lg text-foreground space-y-1.5">
-                <li>x₁ + x₂ + x₃ + x₄ ≤ TotalCarne</li>
-                <li>0,05 x₂ + 0,10 x₃ + 0,15 x₄ ≤ HorasTrabalho</li>
-                <li>x₃ + x₄ ≤ CapacidadeEstufa</li>
-                <li>x₂ + x₃ ≤ CapacidadeRefrigeração</li>
-                <li>x₄ ≤ DemandaMáxSalame</li>
-                <li>x₁ ≥ ContratoMínimo</li>
+                <li>x₁ + x₂ + x₃ + x₄ ≤ 500&nbsp;&nbsp;<span className="text-muted-foreground text-base">(carne total, kg)</span></li>
+                <li>0,05 x₂ + 0,10 x₃ + 0,15 x₄ ≤ 40&nbsp;&nbsp;<span className="text-muted-foreground text-base">(mão de obra, h)</span></li>
+                <li>x₃ + x₄ ≤ 150&nbsp;&nbsp;<span className="text-muted-foreground text-base">(capacidade da estufa, kg)</span></li>
+                <li>x₂ + x₃ ≤ 280&nbsp;&nbsp;<span className="text-muted-foreground text-base">(câmara de refrigeração, kg)</span></li>
+                <li>x₄ ≤ 120&nbsp;&nbsp;<span className="text-muted-foreground text-base">(demanda máx. de salame, kg)</span></li>
+                <li>x₁ ≥ 100&nbsp;&nbsp;<span className="text-muted-foreground text-base">(contrato mínimo de carcaça, kg)</span></li>
                 <li>x₁, x₂, x₃, x₄ ≥ 0</li>
               </ul>
             </div>
 
             <p className="text-base text-muted-foreground italic">
-              Os valores das restrições (TotalCarne, HorasTrabalho,
-              CapacidadeEstufa, CapacidadeRefrigeração, DemandaMáxSalame,
-              ContratoMínimo) são ajustáveis na página de resolução para
-              simular diferentes cenários semanais.
+              Os valores numéricos acima correspondem ao cenário base e podem
+              ser ajustados na página de resolução para simular diferentes
+              cenários semanais.
             </p>
           </CardContent>
         </Card>
