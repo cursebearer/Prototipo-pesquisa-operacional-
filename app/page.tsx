@@ -7,73 +7,98 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { MinecraftPig } from "@/components/minecraft-pig";
+import {
+  RawPorkchop,
+  CookedPorkchop,
+  GrassBlock,
+  Emerald,
+  GoldIngot,
+} from "@/components/minecraft-icons";
 
 const PRODUCTS = [
   {
+    symbol: "x₁",
     name: "Carcaça",
     profit: 10,
     labor: "—",
     oven: false,
+    refrig: false,
     description: "Venda in natura, sem processamento adicional.",
     color: "var(--chart-4)",
+    icon: <RawPorkchop size={40} />,
   },
   {
+    symbol: "x₂",
     name: "Linguiça",
     profit: 25,
     labor: "3 min/kg",
     oven: false,
-    description: "Moagem e tempero. Não requer estufa.",
+    refrig: true,
+    description: "Moagem, tempero e armazenamento refrigerado.",
     color: "var(--chart-5)",
+    icon: <CookedPorkchop size={40} />,
   },
   {
+    symbol: "x₃",
     name: "Bacon",
     profit: 35,
     labor: "6 min/kg",
     oven: true,
-    description: "Corte e defumação em estufa.",
+    refrig: true,
+    description: "Corte, defumação em estufa e refrigeração.",
     color: "var(--chart-2)",
+    icon: <CookedPorkchop size={40} />,
   },
   {
+    symbol: "x₄",
     name: "Salame",
     profit: 45,
     labor: "9 min/kg",
     oven: true,
+    refrig: false,
     description: "Cura e defumação prolongada em estufa.",
     color: "var(--chart-3)",
+    icon: <CookedPorkchop size={40} />,
   },
 ];
 
 export default function ProblemPage() {
   return (
-    <main className="min-h-screen py-10 px-4">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <main className="min-h-screen py-12 px-4">
+      <div className="max-w-5xl mx-auto space-y-10">
 
         {/* Nav */}
         <nav className="flex justify-end">
           <Link
             href="/resolucao"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-lg font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
           >
             Ver Resolução →
           </Link>
         </nav>
 
-        {/* Header */}
-        <header className="space-y-2">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-            Otimização do Mix de Produção
-          </h1>
-          <p className="text-muted-foreground text-lg">
-            Programação Linear aplicada à agroindústria suína
-          </p>
+        {/* Header com porco isométrico */}
+        <header className="flex items-center gap-6 flex-wrap">
+          <MinecraftPig variant="side" size={180} className="shrink-0 drop-shadow-lg" />
+          <div className="space-y-3 flex-1 min-w-[260px]">
+            <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-tight">
+              Otimização do Mix de Produção
+            </h1>
+            <p className="text-muted-foreground text-2xl flex items-center gap-3 flex-wrap">
+              <GrassBlock size={36} />
+              Programação Linear aplicada à agroindústria suína
+              <RawPorkchop size={36} />
+            </p>
+          </div>
         </header>
 
         {/* Contexto */}
         <Card>
           <CardHeader>
-            <CardTitle>Contexto</CardTitle>
+            <CardTitle className="text-3xl">Contexto</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3 text-foreground leading-relaxed">
+          <CardContent className="space-y-4 text-foreground leading-relaxed text-xl">
             <p>
               O <strong>Frigorífico Vale Verde</strong> é uma agroindústria
               familiar localizada no interior do Rio Grande do Sul. Toda semana,
@@ -89,10 +114,11 @@ export default function ProblemPage() {
               e compartilhado entre Bacon e Salame.
             </p>
             <p>
-              Além disso, a empresa mantém um <strong>contrato fixo com um
-              supermercado local</strong> que exige uma quantidade mínima semanal
-              de Carcaça, e adota como política interna manter pelo menos 1 kg
-              de Linguiça, Bacon e Salame para não perder clientes de portfólio.
+              A empresa mantém um <strong>contrato fixo com um supermercado
+              local</strong> que exige uma quantidade mínima semanal de Carcaça.
+              Além disso, o mercado de Salame tem demanda limitada e a câmara de
+              refrigeração compartilhada entre Linguiça e Bacon impõe um teto à
+              produção desses itens.
             </p>
           </CardContent>
         </Card>
@@ -100,34 +126,41 @@ export default function ProblemPage() {
         {/* Produtos */}
         <Card>
           <CardHeader>
-            <CardTitle>Os Produtos</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-3xl">Os Produtos</CardTitle>
+            <CardDescription className="text-lg">
               Características de cada item fabricado
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-5">
               {PRODUCTS.map((p) => (
                 <div
                   key={p.name}
-                  className="rounded-lg border border-border p-4 space-y-2"
+                  className="rounded-lg border border-border p-5 space-y-3"
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3">
                     <span
-                      className="w-3 h-3 rounded-full flex-shrink-0"
+                      className="w-4 h-4 rounded-full flex-shrink-0"
                       style={{ backgroundColor: p.color }}
                     />
-                    <span className="font-semibold text-foreground">
+                    <span className="font-mono text-base text-muted-foreground">{p.symbol}</span>
+                    <span className="font-semibold text-foreground text-xl">
                       {p.name}
                     </span>
+                    <span className="ml-auto">{p.icon}</span>
                   </div>
-                  <p className="text-sm text-muted-foreground">{p.description}</p>
+                  <p className="text-base text-muted-foreground">{p.description}</p>
                   <div className="flex flex-wrap gap-2 pt-1">
-                    <Badge variant="secondary">R$ {p.profit}/kg</Badge>
-                    <Badge variant="outline">{p.labor}</Badge>
+                    <Badge variant="secondary" className="text-base px-3 py-1">R$ {p.profit}/kg</Badge>
+                    <Badge variant="outline" className="text-base px-3 py-1">{p.labor}</Badge>
                     {p.oven && (
-                      <Badge className="bg-accent text-accent-foreground">
-                        Usa Estufa
+                      <Badge className="bg-accent text-accent-foreground text-base px-3 py-1">
+                        Estufa
+                      </Badge>
+                    )}
+                    {p.refrig && (
+                      <Badge className="text-base px-3 py-1 text-white" style={{ backgroundColor: "var(--chart-4)" }}>
+                        Refrigeração
                       </Badge>
                     )}
                   </div>
@@ -140,39 +173,52 @@ export default function ProblemPage() {
         {/* Restrições */}
         <Card>
           <CardHeader>
-            <CardTitle>Restrições do Problema</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-3xl">Restrições do Problema</CardTitle>
+            <CardDescription className="text-lg">
               Limitações de recursos que definem o espaço de soluções viáveis
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid sm:grid-cols-2 gap-4 text-sm">
-              <div className="rounded-lg bg-muted/50 p-4 space-y-1">
-                <p className="font-semibold text-foreground">Carne Total</p>
+            <div className="grid sm:grid-cols-2 gap-4 text-base">
+              <div className="rounded-lg bg-muted/50 p-5 space-y-1">
+                <p className="font-semibold text-foreground text-lg">Carne Total</p>
                 <p className="text-muted-foreground">
                   A soma de todos os produtos não pode ultrapassar o lote
                   disponível na semana.
                 </p>
               </div>
-              <div className="rounded-lg bg-muted/50 p-4 space-y-1">
-                <p className="font-semibold text-foreground">Mão de Obra</p>
+              <div className="rounded-lg bg-muted/50 p-5 space-y-1">
+                <p className="font-semibold text-foreground text-lg">Mão de Obra</p>
                 <p className="text-muted-foreground">
-                  As horas de trabalho disponíveis limitam quanto pode ser
-                  processado (Linguiça, Bacon e Salame consomem tempo).
+                  As horas de trabalho disponíveis limitam o processamento
+                  (Linguiça, Bacon e Salame consomem tempo).
                 </p>
               </div>
-              <div className="rounded-lg bg-muted/50 p-4 space-y-1">
-                <p className="font-semibold text-foreground">Capacidade da Estufa</p>
+              <div className="rounded-lg bg-muted/50 p-5 space-y-1">
+                <p className="font-semibold text-foreground text-lg">Capacidade da Estufa</p>
                 <p className="text-muted-foreground">
                   Bacon e Salame disputam o mesmo espaço na estufa de defumação.
-                  A capacidade semanal é limitada.
                 </p>
               </div>
-              <div className="rounded-lg bg-muted/50 p-4 space-y-1">
-                <p className="font-semibold text-foreground">Contrato Mínimo</p>
+              <div className="rounded-lg bg-muted/50 p-5 space-y-1">
+                <p className="font-semibold text-foreground text-lg">Câmara de Refrigeração</p>
                 <p className="text-muted-foreground">
-                  O supermercado parceiro exige uma quantidade mínima de Carcaça
-                  por semana, garantida em contrato.
+                  Linguiça e Bacon precisam ser armazenados refrigerados — a
+                  capacidade da câmara é compartilhada entre os dois.
+                </p>
+              </div>
+              <div className="rounded-lg bg-muted/50 p-5 space-y-1">
+                <p className="font-semibold text-foreground text-lg">Demanda Máxima de Salame</p>
+                <p className="text-muted-foreground">
+                  O mercado local absorve apenas uma quantidade limitada de
+                  Salame por semana (produto premium).
+                </p>
+              </div>
+              <div className="rounded-lg bg-muted/50 p-5 space-y-1">
+                <p className="font-semibold text-foreground text-lg">Contrato Mínimo de Carcaça</p>
+                <p className="text-muted-foreground">
+                  O supermercado parceiro exige uma quantidade mínima semanal
+                  de Carcaça, garantida em contrato.
                 </p>
               </div>
             </div>
@@ -182,51 +228,53 @@ export default function ProblemPage() {
         {/* Formulação */}
         <Card>
           <CardHeader>
-            <CardTitle>Formulação Matemática</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-3xl">Formulação Matemática</CardTitle>
+            <CardDescription className="text-lg">
               Modelo de Programação Linear
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-5">
-            <div className="rounded-lg bg-muted/50 p-4 space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          <CardContent className="space-y-6">
+            <div className="rounded-lg bg-muted/50 p-5 space-y-2">
+              <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                 Variáveis de decisão
               </p>
-              <ul className="font-mono text-sm text-foreground space-y-0.5">
-                <li>C — kg de Carcaça produzidos</li>
-                <li>L — kg de Linguiça produzidos</li>
-                <li>B — kg de Bacon produzidos</li>
-                <li>S — kg de Salame produzidos</li>
+              <ul className="font-mono text-lg text-foreground space-y-1">
+                <li>x₁ — kg de Carcaça produzidos</li>
+                <li>x₂ — kg de Linguiça produzidos</li>
+                <li>x₃ — kg de Bacon produzidos</li>
+                <li>x₄ — kg de Salame produzidos</li>
               </ul>
             </div>
 
-            <div className="rounded-lg bg-primary/10 border-l-4 border-primary p-4 space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            <div className="rounded-lg bg-primary/10 border-l-4 border-primary p-5 space-y-2">
+              <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                 Função Objetivo
               </p>
-              <p className="font-mono text-base font-bold text-primary">
-                Maximizar Z = 10C + 25L + 35B + 45S
+              <p className="font-mono text-2xl font-bold text-primary">
+                Maximizar Z = 10x₁ + 25x₂ + 35x₃ + 45x₄
               </p>
             </div>
 
-            <div className="rounded-lg bg-muted/50 p-4 space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            <div className="rounded-lg bg-muted/50 p-5 space-y-2">
+              <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                 Sujeito a
               </p>
-              <ul className="font-mono text-sm text-foreground space-y-1">
-                <li>C + L + B + S ≤ TotalCarne</li>
-                <li>0,05L + 0,10B + 0,15S ≤ HorasTrabalho</li>
-                <li>B + S ≤ CapacidadeEstufa</li>
-                <li>C ≥ ContratoMínimo</li>
-                <li>L, B, S ≥ 1</li>
-                <li>C, L, B, S ≥ 0</li>
+              <ul className="font-mono text-lg text-foreground space-y-1.5">
+                <li>x₁ + x₂ + x₃ + x₄ ≤ TotalCarne</li>
+                <li>0,05 x₂ + 0,10 x₃ + 0,15 x₄ ≤ HorasTrabalho</li>
+                <li>x₃ + x₄ ≤ CapacidadeEstufa</li>
+                <li>x₂ + x₃ ≤ CapacidadeRefrigeração</li>
+                <li>x₄ ≤ DemandaMáxSalame</li>
+                <li>x₁ ≥ ContratoMínimo</li>
+                <li>x₁, x₂, x₃, x₄ ≥ 0</li>
               </ul>
             </div>
 
-            <p className="text-sm text-muted-foreground italic">
+            <p className="text-base text-muted-foreground italic">
               Os valores das restrições (TotalCarne, HorasTrabalho,
-              CapacidadeEstufa, ContratoMínimo) são ajustáveis na página de
-              resolução para simular diferentes cenários semanais.
+              CapacidadeEstufa, CapacidadeRefrigeração, DemandaMáxSalame,
+              ContratoMínimo) são ajustáveis na página de resolução para
+              simular diferentes cenários semanais.
             </p>
           </CardContent>
         </Card>
@@ -234,15 +282,20 @@ export default function ProblemPage() {
         {/* Solução do cenário base */}
         <Card className="border-primary/40">
           <CardHeader>
-            <CardTitle>Solução Ótima — Cenário Base</CardTitle>
-            <CardDescription>
-              Problema resolvido com os valores padrão: 500 kg de carne · 40 h
-              de trabalho · 150 kg de estufa · contrato mínimo de 100 kg
-            </CardDescription>
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <div>
+                <CardTitle className="text-3xl">Solução Ótima — Cenário Base</CardTitle>
+                <CardDescription className="text-lg mt-2">
+                  500 kg de carne · 40 h de trabalho · 150 kg de estufa · 280 kg
+                  de refrigeração · 120 kg demanda salame · contrato mínimo 100 kg
+                </CardDescription>
+              </div>
+              <MinecraftPig variant="side" size={160} className="shrink-0 drop-shadow-md" />
+            </div>
           </CardHeader>
           <CardContent className="space-y-6">
 
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed">
               Aplicando o método Simplex a esse cenário, o solver encontra os
               valores das variáveis de decisão que <strong className="text-foreground">
               maximizam a função objetivo</strong>. O resultado indica quanto
@@ -250,30 +303,30 @@ export default function ProblemPage() {
             </p>
 
             {/* Variáveis de decisão */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {[
-                { name: "Carcaça",  symbol: "C", value: 100, profit: 10,  color: "var(--chart-4)", note: "contrato mínimo"   },
-                { name: "Linguiça", symbol: "L", value: 250, profit: 25,  color: "var(--chart-5)", note: "completa a carne"  },
-                { name: "Bacon",    symbol: "B", value:   1, profit: 35,  color: "var(--chart-2)", note: "mínimo de portfólio" },
-                { name: "Salame",   symbol: "S", value: 149, profit: 45,  color: "var(--chart-3)", note: "máximo da estufa"  },
+                { name: "Carcaça",  symbol: "x₁", value: 100, profit: 10, color: "var(--chart-4)", note: "contrato mínimo"        },
+                { name: "Linguiça", symbol: "x₂", value: 250, profit: 25, color: "var(--chart-5)", note: "limite carne + refrig." },
+                { name: "Bacon",    symbol: "x₃", value:  30, profit: 35, color: "var(--chart-2)", note: "preenche estufa restante" },
+                { name: "Salame",   symbol: "x₄", value: 120, profit: 45, color: "var(--chart-3)", note: "demanda máxima"         },
               ].map((v) => (
                 <div
                   key={v.symbol}
-                  className="rounded-lg border border-border p-4 space-y-2 text-center"
+                  className="rounded-lg border border-border p-5 space-y-2 text-center"
                 >
-                  <div className="flex items-center justify-center gap-1.5">
+                  <div className="flex items-center justify-center gap-2">
                     <span
-                      className="w-2.5 h-2.5 rounded-full"
+                      className="w-3 h-3 rounded-full"
                       style={{ backgroundColor: v.color }}
                     />
-                    <span className="text-xs text-muted-foreground font-mono">{v.symbol}</span>
+                    <span className="text-base text-muted-foreground font-mono">{v.symbol}</span>
                   </div>
-                  <p className="text-2xl font-bold text-foreground">
-                    {v.value} <span className="text-sm font-normal text-muted-foreground">kg</span>
+                  <p className="text-4xl font-bold text-foreground">
+                    {v.value} <span className="text-base font-normal text-muted-foreground">kg</span>
                   </p>
-                  <p className="text-xs font-medium text-foreground">{v.name}</p>
-                  <p className="text-xs text-muted-foreground">{v.note}</p>
-                  <p className="text-xs font-mono text-primary">
+                  <p className="text-base font-medium text-foreground">{v.name}</p>
+                  <p className="text-sm text-muted-foreground">{v.note}</p>
+                  <p className="text-base font-mono text-primary font-semibold">
                     R$ {(v.value * v.profit).toLocaleString("pt-BR")}
                   </p>
                 </div>
@@ -281,37 +334,46 @@ export default function ProblemPage() {
             </div>
 
             {/* Lucro total */}
-            <div className="rounded-lg bg-primary/10 border-2 border-primary/40 p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="rounded-lg bg-primary/10 border-2 border-primary/40 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="space-y-1 text-center sm:text-left">
-                <p className="text-sm text-muted-foreground">Função Objetivo</p>
-                <p className="font-mono text-sm text-foreground">
-                  Z = 10(100) + 25(250) + 35(1) + 45(149)
+                <p className="text-base text-muted-foreground">Função Objetivo</p>
+                <p className="font-mono text-lg text-foreground">
+                  Z = 10(100) + 25(250) + 35(30) + 45(120)
                 </p>
-                <p className="font-mono text-sm text-muted-foreground">
-                  Z = 1.000 + 6.250 + 35 + 6.705
+                <p className="font-mono text-lg text-muted-foreground">
+                  Z = 1.000 + 6.250 + 1.050 + 5.400
                 </p>
               </div>
               <div className="text-center sm:text-right">
-                <p className="text-xs text-muted-foreground mb-0.5">Lucro Máximo</p>
-                <p className="text-4xl font-bold text-primary">R$ 13.990,00</p>
+                <p className="text-base text-muted-foreground mb-1 flex items-center gap-2 justify-center sm:justify-end">
+                  <Emerald size={20} /> Lucro Máximo <GoldIngot size={20} />
+                </p>
+                <p className="text-5xl font-bold text-primary">R$ 13.700,00</p>
               </div>
             </div>
 
             {/* Explicação */}
-            <div className="rounded-lg bg-muted/50 p-4 space-y-2 text-sm text-muted-foreground">
-              <p className="font-semibold text-foreground">Por que essa combinação?</p>
-              <ul className="list-disc list-inside space-y-1 leading-relaxed">
+            <div className="rounded-lg bg-muted/50 p-5 space-y-3 text-base text-muted-foreground">
+              <p className="font-semibold text-foreground text-lg">Por que essa combinação?</p>
+              <ul className="list-disc list-inside space-y-2 leading-relaxed">
                 <li>
-                  <strong className="text-foreground">Salame</strong> tem o maior lucro por kg (R$ 45),
-                  então é maximizado até o limite da estufa — restando 1 kg para Bacon (mínimo obrigatório).
+                  <strong className="text-foreground">Salame (x₄)</strong> tem o maior lucro/kg
+                  (R$ 45), mas a <strong>demanda máxima</strong> limita a produção a 120 kg.
                 </li>
                 <li>
-                  <strong className="text-foreground">Carcaça</strong> é produzida apenas no mínimo
-                  contratual (100 kg), pois seu lucro de R$ 10/kg é o menor.
+                  <strong className="text-foreground">Bacon (x₃)</strong> ocupa o espaço
+                  restante da estufa (150 − 120 = 30 kg) — como tem lucro/kg maior
+                  que a Linguiça, preenche o limite da estufa antes dela.
                 </li>
                 <li>
-                  <strong className="text-foreground">Linguiça</strong> absorve toda a carne restante
-                  (250 kg), pois é mais lucrativa que a Carcaça e não depende da estufa.
+                  <strong className="text-foreground">Linguiça (x₂)</strong> absorve o restante
+                  da carne (250 kg), limitada simultaneamente pela carne total e pela câmara
+                  de refrigeração (x₂ + x₃ = 280 kg).
+                </li>
+                <li>
+                  <strong className="text-foreground">Carcaça (x₁)</strong> fica no mínimo
+                  contratual (100 kg) — o menor lucro/kg justifica não produzir além do
+                  obrigatório.
                 </li>
               </ul>
             </div>
@@ -320,13 +382,15 @@ export default function ProblemPage() {
         </Card>
 
         {/* CTA */}
-        <div className="flex justify-center pb-4">
+        <div className="flex justify-center pb-4 items-center gap-6 flex-wrap">
+          <MinecraftPig variant="side" size={100} />
           <Link
             href="/resolucao"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3 text-base font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-10 py-4 text-xl font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
           >
             Explorar outros cenários →
           </Link>
+          <MinecraftPig variant="side" size={100} flip />
         </div>
 
       </div>
